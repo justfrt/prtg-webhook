@@ -1,9 +1,9 @@
-# Providing PRTG with external sensordata via HTTP-requests
+# Providing PRTG with external sensor data via HTTP-requests
 
-This project is used to provide sensordata from a Raspberry Pi to a PRTG Monitoring System by sending those via HTTP-Requests.
-For this to work we need a working Raspberry Pi, the DHT22 / DHT11 sensor and a 4.7kOhm Resistor. A breadboard and jumperwires are useful.
+This project is used to provide sensor data from a Raspberry Pi to a PRTG Monitoring System by sending those via HTTP-Requests.
+For this, to work we need a working Raspberry Pi, the DHT22 / DHT11 sensor and a 4.7kOhm Resistor. A breadboard and jumper wires are useful.
 
-The later goal will be to provide the data more costeffective by using the ESP8266 to read the sensors and make the HTTP-Requests.
+The later goal will be to provide the data more cost-effective by using the ESP8266 to read the sensors and make the HTTP-Requests.
 
 ## Connecting the Sensor to the Raspberry Pi
 
@@ -16,20 +16,20 @@ Looking at the front of the front of the sensor:
 
 ## Creating the Sensor on the PRTG Server
 
-We first need to create a http push data sensor via the PRTG webinterface, or Enterprise Console. In the device-tree you need to perform a right click on "localprobe" => "add a new device". Name the new device as you like (i.e. DC_Monitoring_pi) and proceed. Add new sensors to your device by performing a right click on it and "add new sensor".
+We first need to create an HTTP Push Data Sensor via the PRTG web interface, or Enterprise Console. In the device-tree, you need to perform a right-click on "local probe" => "add a new device". Name the new device as you like (i.e. DC_Monitoring_pi) and proceed. Add new sensors to your device by performing a right click on it and "add new sensor".
 
 ### Sensor Configuration
 
-* Name => Moniored value (i.e. Temperature, Humidity)
-* Port => The port on wich the request will be recieved. For each monitored value a new port is needed
+* Name => Monitored value (i.e. Temperature, Humidity)
+* Port => The port on which the request will be received. For each monitored value, a new port is needed
 * Request Method => "GET"
-* Identification Token => Choose your own, or leave `{__guid__}` to get a automatically generated after the sensor is setup
+* Identification Token => Choose your own, or leave `{__guid__}` to get an automatically generated after the sensor is setup
 * Incoming Request => "Discard request" if you don´t want to store the values in a file
-* No Incoming Data => Choose what to do, when no data is recieved
+* No Incoming Data => Choose what to do when no data is received
 * Value Type => "Float"
-* Scanning Interval => The script is set to send a vlaue every 10 seconds, so a scanning interval less than 10 seconds could result in disorted data. You can change this in line 32 of the reading script.
+* Scanning Interval => The script is set to send a value every 10 seconds, so a scanning interval less than 10 seconds could result in distorted data. You can change this in line 32 of the reading script.
 
-## Install Docker on the Raspbery Pi
+## Install Docker on the Raspberry Pi
 
 Install using the get-docker script:
 
@@ -52,15 +52,15 @@ Following output verifies you´ve installed Docker correctly:
 `Hello from Docker!`
 `This message shows that your installation appears to be working correctly [...]`
 
-Lastly install docker-compose.
+Lastly, install docker-compose.
 
 `sudo apt-get install docker-compose`
 
-## Edit the Python scrpits to work in your environment
+## Edit the Python scripts to work in your environment
 
 ### hum_reading.py / temp_reading.py
 
-You will find the scripts under `prtg-rpi-sensors/hum/` or `prtg-rpi-sensors/temp/`
+You will find the scripts under `prtg-webhook/hum/` or `prtg-webhook/temp/`
 
 Change line 9  to your sensor (DHT11 / DHT22)
 
