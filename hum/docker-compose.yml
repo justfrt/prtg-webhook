@@ -1,0 +1,18 @@
+# Declare composefile version
+version: "2"
+
+# Define the service
+services:
+  # Service name
+  hum_reading:
+    # Path to dockerfile to build from
+    build: .
+    # Name of the image to build / if already build the image to start
+    image: hum_reading
+    # Volumes to share with the container (sys for acces to the GPIO-Pins)
+    volumes:
+      - /sys:/sys
+    # Container have run in privileged mode to acces the GPIO-Pins
+    privileged: true
+    # Container should always restart
+    restart: always
